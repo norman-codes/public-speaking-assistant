@@ -23,7 +23,7 @@ export default function ClientComponent({
       <VoiceProvider
         configId="be5fc593-8ae9-4150-9c3e-f72fd8374fef"
         auth={{ type: "accessToken", value: accessToken }}
-        onMessage={() => {
+        onMessage={(message) => {
           if (timeout.current) {
             window.clearTimeout(timeout.current);
           }
@@ -38,6 +38,17 @@ export default function ClientComponent({
               });
             }
           }, 200);
+
+          try {
+            // Check the type of the message
+            if (message.type === "user_message") {
+              const content = message.message.content;
+              // Perform your action here, e.g., printing a statement
+              console.log("User message content:", content);
+            }
+          } catch (error) {
+            console.error("Failed to parse message:", error)
+          }
         }}
       >
         <Messages ref={ref} />
