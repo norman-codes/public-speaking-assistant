@@ -3,7 +3,7 @@
 import { VoiceProvider } from "@humeai/voice-react";
 import Messages from "./Messages";
 import Controls from "./Controls";
-import StartCall from "./StartCall";
+import Start from "./Start";
 import { ComponentRef, useRef } from "react";
 
 export default function ClientComponent({
@@ -21,6 +21,7 @@ export default function ClientComponent({
       }
     >
       <VoiceProvider
+        configId="be5fc593-8ae9-4150-9c3e-f72fd8374fef"
         auth={{ type: "accessToken", value: accessToken }}
         onMessage={() => {
           if (timeout.current) {
@@ -41,7 +42,7 @@ export default function ClientComponent({
       >
         <Messages ref={ref} />
         <Controls />
-        <StartCall />
+        <Start />
       </VoiceProvider>
     </div>
   );

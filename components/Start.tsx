@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Play } from "lucide-react";
 
-export default function StartCall() {
+export default function Start() {
   const { status, connect } = useVoice();
 
   return (
@@ -29,7 +29,7 @@ export default function StartCall() {
               }}
             >
               <Button
-                className={"z-50 flex items-center gap-1.5"}
+                className={"z-50 flex items-center gap-1.5 scale-125"}
                 onClick={() => {
                   connect()
                     .then(() => {})

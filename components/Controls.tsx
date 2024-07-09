@@ -1,7 +1,7 @@
 "use client";
 import { useVoice } from "@humeai/voice-react";
 import { Button } from "./ui/button";
-import { Mic, MicOff, Phone } from "lucide-react";
+import { Mic, MicOff, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Toggle } from "./ui/toggle";
 import MicFFT from "./MicFFT";
@@ -67,13 +67,13 @@ export default function Controls() {
               variant={"destructive"}
             >
               <span>
-                <Phone
+                <X
                   className={"size-4 opacity-50"}
                   strokeWidth={2}
                   stroke={"currentColor"}
                 />
               </span>
-              <span>End Call</span>
+              <span>Stop</span>
             </Button>
           </motion.div>
         ) : null}
