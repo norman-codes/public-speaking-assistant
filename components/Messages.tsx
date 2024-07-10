@@ -4,12 +4,14 @@ import { useVoice } from "@humeai/voice-react";
 import Expressions from "./Expressions";
 import { AnimatePresence, motion } from "framer-motion";
 import { ComponentRef, forwardRef } from "react";
+import { useAssistantControl } from "@/utils/useAssistantControls";
 
 const Messages = forwardRef<
   ComponentRef<typeof motion.div>,
   Record<never, never>
 >(function Messages(_, ref) {
   const { messages } = useVoice();
+  useAssistantControl(); // Use the hook to control the assistant
 
   return (
     <motion.div

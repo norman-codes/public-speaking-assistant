@@ -1,10 +1,55 @@
 "use client";
 
-import { VoiceProvider } from "@humeai/voice-react";
+import {
+  VoiceProvider, 
+  ToolCall, 
+  ToolCallHandler,
+  ToolResponse, 
+  ToolError,
+} from "@humeai/voice-react";
 import Messages from "./Messages";
 import Controls from "./Controls";
 import Start from "./Start";
+import messageEmitter from "@/utils/eventEmitter"; 
 import { ComponentRef, useRef } from "react";
+
+const handleToolCall: ToolCallHandler = async (
+  toolCall: ToolCall
+): Promise<ToolResponse | ToolError> => {
+  console.log("Tool call received", toolCall);
+
+  if (toolCall.name === 'pauseAssistantWhenUserSaysStartPerformance') {
+    try {
+
+      messageEmitter.emit("pause_assistant");
+
+      return {
+        type: 'tool_response',
+        tool_call_id: toolCall.tool_call_id,
+        content: "",
+      };
+    } catch (error) {
+      return {
+        type: 'tool_error',
+        tool_call_id: toolCall.tool_call_id,
+        error: 'Pause assistant tool error',
+        code: 'pause_tool_error',
+        level: 'warn',
+        content: 'There was an error with the pause assistant message tool',
+      };
+    }
+  }
+  else {
+    return {
+      type: 'tool_error',
+      tool_call_id: toolCall.tool_call_id,
+      error: 'Tool not found',
+      code: 'tool_not_found',
+      level: 'warn',
+      content: 'The tool you requested was not found',
+    };
+  }
+};
 
 export default function ClientComponent({
   accessToken,
@@ -40,16 +85,20 @@ export default function ClientComponent({
           }, 200);
 
           try {
-            // Check the type of the message
-            if (message.type === "user_message") {
-              const content = message.message.content;
-              // Perform your action here, e.g., printing a statement
-              console.log("User message content:", content);
+            // Emit event for specific message type and content
+            console.log(message.type)
+            if (message.type === "user_message" && message.message.content === "Start performance.") {
+              console.log("START PERFORMANCE SAID CLIENT SIDE")
+            }
+            if (message.type === "user_message" && message.message.content === "Stop performance.") {
+              console.log("STOP PERFORMANCE SAID CLIENT SIDE")
+              messageEmitter.emit("resume_assistant")
             }
           } catch (error) {
-            console.error("Failed to parse message:", error)
+            console.error("Failed to parse message:", error);
           }
         }}
+        onToolCall={handleToolCall}
       >
         <Messages ref={ref} />
         <Controls />
