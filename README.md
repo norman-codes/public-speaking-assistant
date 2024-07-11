@@ -23,3 +23,37 @@ Below are the steps to completing deployment:
 ## Support
 
 If you have questions, require assistance, or wish to engage in discussions pertaining to this starter template, [please reach out to us on Discord](https://link.hume.ai/discord).
+
+## Feature Implementations
+
+### Voice Commands via Tool Use and Message Emitter
+
+(explaining how a tool is used to pause the assistant and a message emitter is used to resume it)
+
+### Resumability
+
+Resumability is achieved by managing the chat group ID state and updating it upon receiving specific WebSocket messages. Here’s a step-by-step breakdown:
+
+1. **State Initialization**: The `chatGroupId` state is initialized to `undefined`.
+  ```js
+  // Chat.tsx
+  const [chatGroupId, setChatGroupId] = useState<string | undefined>(undefined);
+  ```
+2. **Handling WebSocket Messages**: When a message is received, the `onMessage` function checks for `chat_metadata` type messages and updates the state with the new chat group ID.
+  ```js
+  // Chat.tsx
+  onMessage={(message) => {
+    if (message.type === "chat_metadata") {
+      setChatGroupId(message.chat_group_id);
+    }
+  }}
+  ```
+3. **State Update and Re-render**: Calling `setChatGroupId` updates the state, causing React to re-render the component with the new chat group ID.
+4. **Passing the Updated Value**: The updated `chatGroupId` is passed to the VoiceProvider component via its `resumedChatGroupId` prop. This ensures that the chat session can be resumed with the correct chat group ID whenever a new one is received.
+  ```js
+  // Chat.tsx
+  <VoiceProvider
+    resumedChatGroupId={chatGroupId}
+    // ... other props
+  >
+  ```
