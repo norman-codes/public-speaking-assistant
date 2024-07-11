@@ -11,7 +11,7 @@ import Messages from "./Messages";
 import Controls from "./Controls";
 import Start from "./Start";
 import messageEmitter from "@/utils/eventEmitter"; 
-import { ComponentRef, useRef } from "react";
+import { ComponentRef, useRef, useState } from "react";
 
 const handleToolCall: ToolCallHandler = async (
   toolCall: ToolCall
@@ -58,7 +58,8 @@ export default function ClientComponent({
 }) {
   const timeout = useRef<number | null>(null);
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
-  
+  const [chatGroupId, setChatGroupId] = useState<string | undefined>(undefined);
+
   return (
     <div
       className={
@@ -84,21 +85,32 @@ export default function ClientComponent({
             }
           }, 200);
 
+          if (message.type === "chat_metadata") {
+            console.log("current ID is " + chatGroupId);
+
+            console.log("id obtained: " + message.chat_group_id);
+
+            setChatGroupId(message.chat_group_id);
+            
+            console.log("ID set to " + message.chat_group_id);
+          }
+
           try {
             // Emit event for specific message type and content
-            console.log(message.type)
+            console.log(message.type);
             if (message.type === "user_message" && message.message.content === "Start performance.") {
-              console.log("START PERFORMANCE SAID CLIENT SIDE")
+              console.log("START PERFORMANCE SAID CLIENT SIDE");
             }
             if (message.type === "user_message" && message.message.content === "Stop performance.") {
-              console.log("STOP PERFORMANCE SAID CLIENT SIDE")
-              messageEmitter.emit("resume_assistant")
+              console.log("STOP PERFORMANCE SAID CLIENT SIDE");
+              messageEmitter.emit("resume_assistant");
             }
           } catch (error) {
             console.error("Failed to parse message:", error);
           }
         }}
         onToolCall={handleToolCall}
+        resumedChatGroupId={chatGroupId}
       >
         <Messages ref={ref} />
         <Controls />
