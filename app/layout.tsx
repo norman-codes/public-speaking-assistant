@@ -6,8 +6,8 @@ import { cn } from "@/utils";
 import "./global.css";
 
 export const metadata: Metadata = {
-  title: "Cicero",
-  description: "Your personal, empathetic audience for public speaking practice.",
+  title: "AI Public Speaking Assistant",
+  description: "An empathic AI public speaking and performance assistant.",
 };
 
 export default function RootLayout({
