@@ -11,7 +11,7 @@ import Messages from "./Messages";
 import Controls from "./Controls";
 import Start from "./Start";
 import messageEmitter from "@/utils/eventEmitter"; 
-import { ComponentRef, useRef, useState } from "react";
+import { ComponentRef, useRef, useState, useEffect } from "react";
 
 const handleToolCall: ToolCallHandler = async (
   toolCall: ToolCall
@@ -60,6 +60,12 @@ export default function ClientComponent({
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
   const [chatGroupId, setChatGroupId] = useState<string | undefined>(undefined);
 
+  // Log chatGroupId whenever it changes
+  useEffect(() => {
+    console.log("Current Chat Group ID: ", chatGroupId);
+    console.log("Chat Group ID updated to:", chatGroupId);
+  }, [chatGroupId]);
+
   return (
     <div
       className={
@@ -86,13 +92,12 @@ export default function ClientComponent({
           }, 200);
 
           if (message.type === "chat_metadata") {
-            console.log("current ID is " + chatGroupId);
 
             console.log("id obtained: " + message.chat_group_id);
 
-            setChatGroupId(message.chat_group_id);
-            
-            console.log("ID set to " + message.chat_group_id);
+            if (chatGroupId === undefined) {
+              setChatGroupId(message.chat_group_id);
+            }
           }
 
           try {
@@ -112,9 +117,9 @@ export default function ClientComponent({
         onToolCall={handleToolCall}
         resumedChatGroupId={chatGroupId}
       >
-        <Messages ref={ref} />
-        <Controls />
-        <Start />
+      <Messages ref={ref} />
+      <Controls />
+      <Start />
       </VoiceProvider>
     </div>
   );
