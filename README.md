@@ -57,3 +57,6 @@ Resumability is achieved by managing the chat group ID state and updating it upo
     // ... other props
   >
   ```
+
+## Image Attribution
+<a href="https://www.freepik.com/free-photo/white-paper-texture_1033849.htm#query=paper%20texture&position=30&from_view=keyword&track=ais_hybrid&uuid=d40bacf0-567c-4d14-bb2b-f7cf692e926b">Image by kues1</a> on Freepik

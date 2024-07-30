@@ -11,7 +11,7 @@ export default function Start() {
       {status.value !== "connected" ? (
         <motion.div
           className={
-            "fixed inset-0 p-4 flex flex-col items-center justify-center bg-background"
+            "fixed inset-0 p-4 flex flex-col items-center justify-center bg-transparent"
           }
           initial="initial"
           animate="enter"
