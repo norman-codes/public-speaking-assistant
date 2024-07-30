@@ -40,7 +40,7 @@ export default function Start() {
                   y2="0%"
                 >
                   <stop
-                    offset="60%"
+                    offset="65%"
                     style={{ stopColor: "black", stopOpacity: 1 }}
                   />
                   <stop
@@ -50,7 +50,7 @@ export default function Start() {
                 </linearGradient>
               </defs>
               <style type="text/css">
-                {`.st0{fill:url(#bw-gradient);}`} // Use the gradient
+                {`.st0{fill:url(#bw-gradient);}`}
               </style>
               <g>
                 <rect
