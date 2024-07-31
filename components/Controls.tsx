@@ -8,7 +8,8 @@ import MicFFT from "./MicFFT";
 import { cn } from "@/utils";
 
 export default function Controls() {
-  const { disconnect, status, isMuted, unmute, mute, micFft } = useVoice();
+  const { disconnect, status, isMuted, unmute, mute, micFft, fft } = useVoice();
+  const isMicrophoneActive = micFft.some(value => value > 0); // Simple check to see if micFft has data
 
   return (
     <div
@@ -56,7 +57,11 @@ export default function Controls() {
             </Toggle>
 
             <div className={"relative grid h-8 w-48 shrink grow-0"}>
-              <MicFFT fft={micFft} className={"fill-current"} />
+              <MicFFT
+                fft={isMicrophoneActive ? micFft : fft}
+                color={isMicrophoneActive ? "red" : "blue"}
+                className={"fill-current"}
+              />
             </div>
 
             <Button
