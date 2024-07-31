@@ -1,27 +1,15 @@
 "use client";
 
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import HumeLogo from "./logos/Hume";
 import Github from "./logos/GitHub";
 import { Button } from "./ui/button";
-import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
 import Modal from "./ui/modal";
 
 export const Nav = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isAboutModalOpen, setisAboutModalOpen] = useState(false);
   const [isHowToModalOpen, setisHowToModalOpen] = useState(false);
-
-  useLayoutEffect(() => {
-    const el = document.documentElement;
-
-    if (el.classList.contains("dark")) {
-      setIsDarkMode(true);
-    } else {
-      setIsDarkMode(false);
-    }
-  }, []);
 
   return (
     <div className={"px-4 py-2 flex items-center h-14 z-50 bg-transparent"}>
