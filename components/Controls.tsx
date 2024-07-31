@@ -9,16 +9,13 @@ import { cn } from "@/utils";
 
 export default function Controls() {
   const { disconnect, status, isMuted, unmute, mute, micFft, fft } = useVoice();
-  const isMicrophoneActive = micFft.some(value => value > 0); // Simple check to see if micFft has data
 
   return (
     <div
-      className={
-        cn(
-          "fixed bottom-0 left-0 w-full p-4 flex items-center justify-center",
-          "bg-gradient-to-t from-card via-card/90 to-card/0",
-        )
-      }
+      className={cn(
+        "fixed bottom-0 left-0 w-full p-4 flex items-center justify-center",
+        "bg-gradient-to-t from-card via-card/90 to-card/0"
+      )}
     >
       <AnimatePresence>
         {status.value === "connected" ? (
@@ -58,8 +55,10 @@ export default function Controls() {
 
             <div className={"relative grid h-8 w-48 shrink grow-0"}>
               <MicFFT
-                fft={isMicrophoneActive ? micFft : fft}
-                color={isMicrophoneActive ? "red" : "blue"}
+                micFft={micFft}
+                audioFft={fft}
+                micColor={"red"}
+                audioColor={"blue"}
                 className={"fill-current"}
               />
             </div>
