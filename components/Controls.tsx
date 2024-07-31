@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Mic, MicOff, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Toggle } from "./ui/toggle";
-import MicFFT from "./MicFFT";
+import WaveformFromFFT from "./WaveformFromFFT";
 import { cn } from "@/utils";
 
 export default function Controls() {
@@ -54,7 +54,7 @@ export default function Controls() {
             </Toggle>
 
             <div className={"relative grid h-8 w-48 shrink grow-0"}>
-              <MicFFT
+              <WaveformFromFFT
                 micFft={micFft}
                 audioFft={fft}
                 micColor={"red"}

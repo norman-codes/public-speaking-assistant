@@ -5,7 +5,7 @@ import { cn } from "@/utils";
 import { motion } from "framer-motion";
 import { AutoSizer } from "react-virtualized";
 
-export default function MicFFT({
+export default function WaveformFromFFT({
   micFft,
   audioFft,
   micColor,
@@ -29,7 +29,7 @@ export default function MicFFT({
             className={cn("absolute !inset-0 !size-full", className)}
           >
             {Array.from({ length: micFft.length }).map((_, index) => {
-              const micValue = (micFft[index] ?? 0) / 4;
+              const micValue = (micFft[index] ?? 0) / 2; // Increased scaling factor for larger waveform
               const micHeight = Math.min(Math.max(height * micValue, 2), height);
               const micYOffset = height * 0.5 - micHeight * 0.5;
 
@@ -37,8 +37,8 @@ export default function MicFFT({
                 <motion.rect
                   key={`mic-fft-${index}`}
                   height={micHeight}
-                  width={2}
-                  x={2 + (index * width - 4) / micFft.length}
+                  width={4} // Increased width for larger rectangles
+                  x={4 + (index * (width - 8)) / micFft.length}
                   y={micYOffset}
                   rx={4}
                   fill={micColor}
@@ -47,7 +47,7 @@ export default function MicFFT({
               );
             })}
             {Array.from({ length: audioFft.length }).map((_, index) => {
-              const audioValue = (audioFft[index] ?? 0) / 4;
+              const audioValue = (audioFft[index] ?? 0) / 2; // Increased scaling factor for larger waveform
               const audioHeight = Math.min(Math.max(height * audioValue, 2), height);
               const audioYOffset = height * 0.5 - audioHeight * 0.5;
 
@@ -55,8 +55,8 @@ export default function MicFFT({
                 <motion.rect
                   key={`audio-fft-${index}`}
                   height={audioHeight}
-                  width={2}
-                  x={2 + (index * width - 4) / audioFft.length}
+                  width={4} // Increased width for larger rectangles
+                  x={4 + (index * (width - 8)) / audioFft.length}
                   y={audioYOffset}
                   rx={4}
                   fill={audioColor}
