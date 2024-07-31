@@ -13,8 +13,9 @@ export default function Controls() {
   return (
     <div
       className={cn(
-        "fixed bottom-0 left-0 w-full p-4 flex items-center justify-center",
-        "bg-gradient-to-t from-card via-card/90 to-card/0"
+        "fixed bottom-10 left-0 w-full p-6 flex items-center justify-center", // Changed p-4 to p-6 for more padding
+        "bg-gradient-to-t from-card via-card/90 to-card/0",
+        "h-24" // Added height for the container
       )}
     >
       <AnimatePresence>
@@ -33,7 +34,7 @@ export default function Controls() {
               opacity: 0,
             }}
             className={
-              "p-4 bg-card border border-border rounded-lg shadow-sm flex items-center gap-4"
+              "p-6 bg-card border border-border rounded-lg shadow-sm flex items-center gap-6" // Changed p-4 to p-6 and gap-4 to gap-6 for more spacing
             }
           >
             <Toggle
@@ -47,13 +48,13 @@ export default function Controls() {
               }}
             >
               {isMuted ? (
-                <MicOff className={"size-4"} />
+                <MicOff className={"size-5"} /> // Changed size-4 to size-5 for larger icon
               ) : (
-                <Mic className={"size-4"} />
+                <Mic className={"size-5"} /> // Changed size-4 to size-5 for larger icon
               )}
             </Toggle>
 
-            <div className={"relative grid h-8 w-48 shrink grow-0"}>
+            <div className={"relative grid h-16 w-64 shrink grow-0"}>
               <WaveformFromFFT
                 micFft={micFft}
                 audioFft={fft}
@@ -64,7 +65,7 @@ export default function Controls() {
             </div>
 
             <Button
-              className={"flex items-center gap-1"}
+              className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
               onClick={() => {
                 disconnect();
               }}
@@ -72,7 +73,7 @@ export default function Controls() {
             >
               <span>
                 <X
-                  className={"size-4 opacity-50"}
+                  className={"size-5 opacity-50"} // Changed size-4 to size-5 for larger icon
                   strokeWidth={2}
                   stroke={"currentColor"}
                 />
