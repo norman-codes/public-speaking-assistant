@@ -10,14 +10,19 @@ export default function WaveformFromFFT({
   audioFft,
   micColor,
   audioColor,
+  micThreshold = 0.7,
   className,
 }: {
   micFft: number[];
   audioFft: number[];
   micColor: string;
   audioColor: string;
+  micThreshold?: number;
   className?: string;
 }) {
+  // Check if any mic values exceed the threshold
+  const micExceedsThreshold = micFft.some(value => (value / 2) > micThreshold);
+
   return (
     <div className={"relative size-full"}>
       <AutoSizer>
@@ -29,9 +34,10 @@ export default function WaveformFromFFT({
             className={cn("absolute !inset-0 !size-full", className)}
           >
             {Array.from({ length: micFft.length }).map((_, index) => {
-              const micValue = (micFft[index] ?? 0) / 2; // Increased scaling factor for larger waveform
+              const micValue = (micFft[index] ?? 0) / 2; // Adjust scaling factor as needed
               const micHeight = Math.min(Math.max(height * micValue, 2), height);
               const micYOffset = height * 0.5 - micHeight * 0.5;
+              const micOpacity = micExceedsThreshold ? 0.7 : 0.2; // Full opacity if any value exceeds threshold
 
               return (
                 <motion.rect
@@ -42,12 +48,12 @@ export default function WaveformFromFFT({
                   y={micYOffset}
                   rx={4}
                   fill={micColor}
-                  opacity={0.7}
+                  opacity={micOpacity}
                 />
               );
             })}
             {Array.from({ length: audioFft.length }).map((_, index) => {
-              const audioValue = (audioFft[index] ?? 0) / 2; // Increased scaling factor for larger waveform
+              const audioValue = (audioFft[index] ?? 0) / 2; // Adjust scaling factor as needed
               const audioHeight = Math.min(Math.max(height * audioValue, 2), height);
               const audioYOffset = height * 0.5 - audioHeight * 0.5;
 
@@ -60,7 +66,7 @@ export default function WaveformFromFFT({
                   y={audioYOffset}
                   rx={4}
                   fill={audioColor}
-                  opacity={0.7}
+                  opacity={0.7} // Fixed opacity for audio FFT
                 />
               );
             })}
