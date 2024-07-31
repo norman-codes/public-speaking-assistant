@@ -117,9 +117,9 @@ export default function ClientComponent({
         onToolCall={handleToolCall}
         resumedChatGroupId={chatGroupId}
       >
-      <Messages ref={ref} />
-      <Controls />
-      <Start />
+        <Messages ref={ref} />
+        <Controls />
+        <Start />
       </VoiceProvider>
     </div>
   );
