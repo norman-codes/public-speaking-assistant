@@ -23,12 +23,6 @@ export const Nav = () => {
     }
   }, []);
 
-  // const toggleDark = () => {
-  //   const el = document.documentElement;
-  //   el.classList.toggle("dark");
-  //   setIsDarkMode((prev) => !prev);
-  // };
-
   return (
     <div className={"px-4 py-2 flex items-center h-14 z-50 bg-transparent"}>
       <div className={"flex-1"}>
@@ -48,15 +42,6 @@ export const Nav = () => {
             <Github className={"h-5 w-auto mr-2"} />
           </div>
         </Link>
-        {/* <Button onClick={toggleDark} variant={"ghost"} size="icon" className={"flex items-center"}>
-          <span>
-            {isDarkMode ? (
-              <Sun className={"size-5"} />
-            ) : (
-              <Moon className={"size-5"} />
-            )}
-          </span>
-        </Button> */}
       </div>
 
       <Modal isOpen={isAboutModalOpen} onClose={() => setisAboutModalOpen(false)} title="About">
