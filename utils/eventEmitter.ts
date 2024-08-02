@@ -3,6 +3,9 @@ import { EventEmitter } from 'events';
 interface MessageEvents {
   'pause_assistant': () => void;
   'resume_assistant': () => void;
+  'close_connection': () => void;
+  'mute_assistant': () => void;
+  'unmute_assistant': () => void;
 }
 
 class TypedEventEmitter extends EventEmitter {

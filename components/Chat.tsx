@@ -39,10 +39,52 @@ const handleToolCall: ToolCallHandler = async (
       };
     }
   }
+  else if (toolCall.name === 'muteAssistantWhenUserSaysMuteYourself') {
+    try {
+
+      messageEmitter.emit("mute_assistant");
+
+      return {
+        type: 'tool_response',
+        tool_call_id: toolCall.tool_call_id,
+        content: "",
+      };
+    } catch (error) {
+      return {
+        type: 'tool_error',
+        tool_call_id: toolCall.tool_call_id,
+        error: 'Mute assistant tool error',
+        code: 'mute_tool_error',
+        level: 'warn',
+        content: 'There was an error with the mute assistant tool',
+      };
+    }
+  }
+  else if (toolCall.name === 'unmuteAssistantWhenUserSaysUnmuteYourself') {
+    try {
+
+      messageEmitter.emit("unmute_assistant");
+
+      return {
+        type: 'tool_response',
+        tool_call_id: toolCall.tool_call_id,
+        content: "",
+      };
+    } catch (error) {
+      return {
+        type: 'tool_error',
+        tool_call_id: toolCall.tool_call_id,
+        error: 'Unmute assistant tool error',
+        code: 'unmute_tool_error',
+        level: 'warn',
+        content: 'There was an error with the unmute assistant tool',
+      };
+    }
+  }
   else if (toolCall.name === 'actOnProvidedConsent') {
     try {
       console.log("Consent granted!")
-      
+
       return {
         type: 'tool_response',
         tool_call_id: toolCall.tool_call_id,
@@ -56,6 +98,48 @@ const handleToolCall: ToolCallHandler = async (
         code: 'consent_granted_tool_error',
         level: 'warn',
         content: 'There was an error with the consent provision tool'
+      }
+    }
+  }
+  else if (toolCall.name === 'actOnRevokedConsent') {
+    try {
+      console.log("Consent revoked!")
+      
+      return {
+        type: 'tool_response',
+        tool_call_id: toolCall.tool_call_id,
+        content: "",
+      }
+    } catch (error) {
+      return {
+        type: 'tool_error',
+        tool_call_id: toolCall.tool_call_id,
+        error: 'Act on revoked consent tool error',
+        code: 'consent_granted_tool_error',
+        level: 'warn',
+        content: 'There was an error with the consent revocation tool'
+      }
+    }
+  }
+  else if (toolCall.name === 'stopChatWhenUserSaysStopChat') {
+    try {
+      console.log("STOP CHAT REQUESTED!")
+
+      messageEmitter.emit("close_connection");
+
+      return {
+        type: 'tool_response',
+        tool_call_id: toolCall.tool_call_id,
+        content: "",
+      }
+    } catch (error) {
+      return {
+        type: 'tool_error',
+        tool_call_id: toolCall.tool_call_id,
+        error: 'Stop chat tool error',
+        code: 'stop_chat_tool_error',
+        level: 'warn',
+        content: 'There was an error with the stop chat tool'
       }
     }
   }
