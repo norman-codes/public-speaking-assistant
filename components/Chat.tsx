@@ -39,6 +39,26 @@ const handleToolCall: ToolCallHandler = async (
       };
     }
   }
+  else if (toolCall.name === 'actOnProvidedConsent') {
+    try {
+      console.log("Consent granted!")
+      
+      return {
+        type: 'tool_response',
+        tool_call_id: toolCall.tool_call_id,
+        content: "",
+      }
+    } catch (error) {
+      return {
+        type: 'tool_error',
+        tool_call_id: toolCall.tool_call_id,
+        error: 'Act on provided consent tool error',
+        code: 'consent_granted_tool_error',
+        level: 'warn',
+        content: 'There was an error with the consent provision tool'
+      }
+    }
+  }
   else {
     return {
       type: 'tool_error',
