@@ -60,3 +60,7 @@ Resumability is achieved by managing the chat group ID state and updating it upo
 
 ## Image Attribution
 <a href="https://www.freepik.com/free-photo/white-paper-texture_1033849.htm#query=paper%20texture&position=30&from_view=keyword&track=ais_hybrid&uuid=d40bacf0-567c-4d14-bb2b-f7cf692e926b">Image by kues1</a> on Freepik
+
+<a href="https://www.freepik.com/free-vector/hand-draw-doodle-work-set-design_12873163.htm#fromView=search&page=2&position=0&uuid=4d5bcc70-0017-46d2-be0a-754b6b133c54">Image by Harryarts on Freepik</a>
+
+<a href="https://www.freepik.com/free-vector/hand-drawn-mic-drawing-illustration_82457356.htm#fromView=search&page=1&position=31&uuid=73138e02-1f4e-459e-9b7a-02fa4326c889">Image by freepik</a>

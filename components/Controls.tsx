@@ -14,7 +14,7 @@ export default function Controls() {
     <div
       className={cn(
         "fixed bottom-10 left-0 w-full p-6 flex items-center justify-center", // Changed p-4 to p-6 for more padding
-        "bg-gradient-to-t from-card via-card/90 to-card/0",
+        "from-card via-card/90 to-card/0",
         "h-24" // Added height for the container
       )}
     >
