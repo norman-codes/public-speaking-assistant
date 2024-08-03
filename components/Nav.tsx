@@ -21,8 +21,8 @@ export const Nav = () => {
         </Link>
       </div>
       <div className={"flex-1 flex justify-center gap-4"}>
-        <Button variant="ghost" onClick={() => setisAboutModalOpen(true)}>About</Button>
-        <Button variant="ghost" onClick={() => setisHowToModalOpen(true)}>How To</Button>
+        <Button className={"font-mono font-bold"} variant="link" onClick={() => setisAboutModalOpen(true)}>About</Button>
+        <Button className={"font-mono font-bold"} variant="link" onClick={() => setisHowToModalOpen(true)}>How To</Button>
       </div>
       <div className={"flex-1 flex justify-end items-center gap-1"}>
         <Link href="https://www.hume.ai/" target="_blank">
@@ -32,11 +32,12 @@ export const Nav = () => {
         </Link>
       </div>
 
-      <Modal isOpen={isAboutModalOpen} onClose={() => setisAboutModalOpen(false)} title="About">
-        <p>Your content goes here.</p>
+      <Modal isOpen={isAboutModalOpen} onClose={() => setisAboutModalOpen(false)} title="What is this?">
+        <p>About the application.</p>
+        <p>This will contain information about what this is used for and demonstrates.</p>
       </Modal>
 
-      <Modal isOpen={isHowToModalOpen} onClose={() => setisHowToModalOpen(false)} title="How To">
+      <Modal isOpen={isHowToModalOpen} onClose={() => setisHowToModalOpen(false)} title="How do I use it?">
         <p>Your content goes here.</p>
       </Modal>
     </div>

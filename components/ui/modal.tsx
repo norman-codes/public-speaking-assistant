@@ -15,9 +15,9 @@ const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
   return (
     <div className={styles.modalOverlay} onClick={onClose}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-        <h3>{title}</h3>
-        <div>{children}</div>
-        <Button variant="default" onClick={onClose} className={styles.closeButton}>
+        <h3 className="font-serif text-3xl">{title}</h3>
+        <div className="font-mono">{children}</div>
+        <Button variant="default" onClick={onClose} className={"font-mono"}>
         Close
         </Button>
       </div>
