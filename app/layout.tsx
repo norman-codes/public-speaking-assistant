@@ -4,7 +4,7 @@ import { Nav } from "@/components/Nav";
 import "./global.css";
 
 const cormorant_upright = Cormorant_Upright({
-  weight: '700',
+  weight: ['400', '700'],
   subsets: ['latin'],
   variable: '--font-cormorant-upright'
 })

@@ -85,8 +85,8 @@ export default function Start() {
             </svg>
           </div>
           <div className="text-center mb-8">
-            <h1 className="text-7xl font-serif text-gray-800">this is a PSA*</h1>
-            <p className="text-2xl font-mono text-gray-600">*AI public speaking assistant</p>
+            <h1 className="text-7xl font-serif font-bold text-gray-800">this is a PSA*</h1>
+            <p className="text-3xl font-serif text-gray-600">*AI public speaking assistant</p>
           </div>
           <AnimatePresence>
             <motion.div
@@ -109,14 +109,13 @@ export default function Start() {
                   <Play
                     className={"size-4 opacity-50"}
                     strokeWidth={2}
-                    stroke={"currentColor"}
                   />
                 </span>
-                <span>Start</span>
+                <span className={"font-mono"}>Start</span>
               </Button>
             </motion.div>
           </AnimatePresence>
-          <p className="text-xs text-gray-500 mt-6 text-center">
+          <p className="text-s font-mono text-gray-500 mt-6 text-center">
             By starting a conversation, I accept Hume's{" "}
             <a
               target="_blank"
