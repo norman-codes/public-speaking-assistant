@@ -85,8 +85,8 @@ export default function Start() {
             </svg>
           </div>
           <div className="text-center mb-8">
-            <h1 className="text-6xl font-bold text-gray-800">this is a PSA*</h1>
-            <p className="text-2xl text-gray-600">*AI public speaking assistant</p>
+            <h1 className="text-7xl font-serif text-gray-800">this is a PSA*</h1>
+            <p className="text-2xl font-mono text-gray-600">*AI public speaking assistant</p>
           </div>
           <AnimatePresence>
             <motion.div

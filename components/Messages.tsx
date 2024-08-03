@@ -35,6 +35,7 @@ const Messages = forwardRef<
                     "w-[80%]",
                     "bg-card",
                     "border border-border rounded",
+                    "shadow-lg",
                     msg.type === "user_message" ? "ml-auto" : ""
                   )}
                   initial={{
@@ -52,12 +53,12 @@ const Messages = forwardRef<
                 >
                   <div
                     className={cn(
-                      "text-xs capitalize font-medium leading-none opacity-50 pt-4 px-3"
+                      "text-xs capitalize font-mono font-medium leading-none opacity-50 pt-4 px-3"
                     )}
                   >
                     {msg.message.role}
                   </div>
-                  <div className={"pb-3 px-3"}>{msg.message.content}</div>
+                  <div className={"pb-3 px-3 font-mono"}>{msg.message.content}</div>
                   <Expressions values={msg.models.prosody?.scores ?? {}} />
                 </motion.div>
               );

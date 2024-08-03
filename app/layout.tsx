@@ -1,9 +1,19 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { Mulish, Cormorant_Upright } from 'next/font/google';
 import { Nav } from "@/components/Nav";
-import { cn } from "@/utils";
 import "./global.css";
+
+const cormorant_upright = Cormorant_Upright({
+  weight: '700',
+  subsets: ['latin'],
+  variable: '--font-cormorant-upright'
+})
+
+const mulish = Mulish({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-mulish'
+})
 
 export const metadata: Metadata = {
   title: "AI Public Speaking Assistant",
@@ -16,13 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${cormorant_upright.variable} ${mulish.variable}`}>
       <body
-        className={cn(
-          GeistSans.variable,
-          GeistMono.variable,
+        className={
           "flex flex-col min-h-screen"
-        )}
+        }
       >
         <Nav />
         {children}

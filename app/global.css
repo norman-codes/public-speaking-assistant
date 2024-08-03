@@ -29,7 +29,7 @@
 
 @layer base {
   * {
-    @apply border-border font-sans;
+    @apply border-border;
   }
   html {
     position: relative;
