@@ -40,7 +40,7 @@ const Modal = ({ isOpen, onClose, onSend, title, showInput = false, children }: 
               maxLength={maxLength} // Add maxLength attribute
             />
             <div className="flex justify-between items-center mt-2">
-              <span className="text-xs font-mono text-gray-500">
+              <span className="text-xs text-gray-500">
                 {message.length}/{maxLength} characters
               </span>
             </div>
@@ -48,7 +48,12 @@ const Modal = ({ isOpen, onClose, onSend, title, showInput = false, children }: 
               <Button variant="ghost" onClick={onClose} className={"font-mono"}>
                 Cancel
               </Button>
-              <Button variant="default" onClick={handleSend} className={"font-mono"}>
+              <Button
+                variant="default"
+                onClick={handleSend}
+                className={"font-mono"}
+                disabled={!message.trim()} // Disable if message is empty
+              >
                 Send
               </Button>
             </div>
