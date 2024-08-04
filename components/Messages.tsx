@@ -5,6 +5,9 @@ import Expressions from "./Expressions";
 import { AnimatePresence, motion } from "framer-motion";
 import { ComponentRef, forwardRef } from "react";
 import { useAssistantControl } from "@/utils/useAssistantControls";
+import Image from 'next/image';
+import personIcon from '../public/person_doodle.png';
+import robotIcon from '../public/robot_doodle.png';
 
 const Messages = forwardRef<
   ComponentRef<typeof motion.div>,
@@ -51,17 +54,28 @@ const Messages = forwardRef<
                     y: 0,
                   }}
                 >
-                  <div
-                    className={cn(
-                      "text-xs capitalize font-mono font-medium leading-none opacity-50 pt-4 px-3"
-                    )}
-                  >
-                    {msg.message.role}
+                  <div className="flex">
+                    <div className="flex-shrink-0 flex items-center border-r border-gray-200">
+                      {msg.type === "user_message" ? (
+                        <Image src={personIcon} alt="User icon - a person." className={"ml-4 mr-4"} width={28} height={28} />
+                      ) : (
+                        <Image src={robotIcon} alt="Assistant icon - a robot." width={56} height={56} />
+                      )}
+                    </div>
+                    <div className="flex-grow p-3">
+                      <div
+                        className={cn(
+                          "text-s mb-1 font-serif font-medium leading-none opacity-50"
+                        )}
+                      >
+                        {msg.message.role}
+                      </div>
+                      <div className={"pb-2 font-mono"}>{msg.message.content}</div>
+                      {msg.type === "user_message" && (
+                        <Expressions values={msg.models.prosody?.scores ?? {}} />
+                      )}
+                    </div>
                   </div>
-                  <div className={"pb-3 px-3 font-mono"}>{msg.message.content}</div>
-                  {msg.type === "user_message" && (
-                    <Expressions values={msg.models.prosody?.scores ?? {}} />
-                  )}
                 </motion.div>
               );
             }
