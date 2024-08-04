@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { Button } from "./button";
-import styles from './modal.module.css'; // Assuming you have a CSS module for styles
+import styles from './modal.module.css';
 
 interface ModalProps {
   isOpen: boolean;
@@ -13,6 +13,7 @@ interface ModalProps {
 
 const Modal = ({ isOpen, onClose, onSend, title, showInput = false, children }: ModalProps) => {
   const [message, setMessage] = useState("");
+  const maxLength = 5000; // Set the character limit
 
   if (!isOpen) return null;
 
@@ -31,13 +32,18 @@ const Modal = ({ isOpen, onClose, onSend, title, showInput = false, children }: 
         {showInput ? (
           <>
             <p className="font-mono mb-2">Please type your message below.</p>
-            <input
-              type="text"
+            <textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="font-mono p-2 border border-gray-300 rounded"
+              className="font-mono p-2 border border-gray-300 rounded w-full h-32 resize-none"
               placeholder="Type your message..."
+              maxLength={maxLength} // Add maxLength attribute
             />
+            <div className="flex justify-between items-center mt-2">
+              <span className="text-xs font-mono text-gray-500">
+                {message.length}/{maxLength} characters
+              </span>
+            </div>
             <div className="flex justify-end gap-2 mt-4">
               <Button variant="ghost" onClick={onClose} className={"font-mono"}>
                 Cancel
