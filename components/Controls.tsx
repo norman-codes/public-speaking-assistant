@@ -26,7 +26,7 @@ export default function Controls({ consentProvided, focusMode }: ControlsProps) 
   // Set a faint glow around the controls based on the state of consent
   useEffect(() => {
     if (consentProvided === null) {
-      setShadow('0 0 0 0 rgba(0, 0, 0, 0)');
+      setShadow('0 0 10px 2px rgba(0, 0, 0, 0.2)');
     } else if (consentProvided) {
       setShadow('0 0 10px 2px rgba(0, 255, 0, 0.5)');
     } else {
