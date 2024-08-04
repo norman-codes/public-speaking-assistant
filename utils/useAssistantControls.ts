@@ -3,7 +3,7 @@ import { useVoice } from '@humeai/voice-react';
 import messageEmitter from './eventEmitter';
 
 export const useAssistantControl = () => {
-  const { sendPauseAssistantMessage, sendResumeAssistantMessage, disconnect, muteAudio, unmuteAudio } = useVoice();
+  const { sendPauseAssistantMessage, sendResumeAssistantMessage, disconnect, muteAudio, unmuteAudio, sendAssistantInput } = useVoice();
 
   useEffect(() => {
     const handlePauseAssistant = () => {
@@ -36,6 +36,13 @@ export const useAssistantControl = () => {
     const handleConsentRevoked = () => {
       console.log("Consent revoked");
       // Space for additional logic when consent is revoked
+      
+      // For example, thank the user, clarify the conversation is over, and then disconnect
+      sendAssistantInput("Thank you for your time. The conversation will end now.");
+
+      setTimeout(() => {
+        disconnect()
+      }, 5000);
     };
 
     messageEmitter.on('pause_assistant', handlePauseAssistant);

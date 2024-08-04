@@ -107,7 +107,8 @@ const handleToolCall: ToolCallHandler = async (
     try {
       console.log("Consent revoked!")
       
-      messageEmitter.emit("consent_revoked"); // Emit event for revoked consent
+      // Emit event for revoked consent
+      messageEmitter.emit("consent_revoked");
 
       return {
         type: 'tool_response',
@@ -127,8 +128,8 @@ const handleToolCall: ToolCallHandler = async (
   }
   else if (toolCall.name === 'stopChatWhenUserSaysStopChat') {
     try {
-      console.log("STOP CHAT REQUESTED!")
 
+      // Emit the chat closing event
       messageEmitter.emit("close_connection");
 
       return {
