@@ -40,40 +40,26 @@ export default function Controls({ consentProvided, focusMode }: ControlsProps) 
   };
 
   return (
-    <div
-      className={cn(
-        "fixed", // Position fixed
-        focusMode ? "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" : "bottom-10 left-0 w-full", // Center in focus mode, bottom otherwise
-        "p-6 flex items-center justify-center", // Changed p-4 to p-6 for more padding
-        "from-card via-card/90 to-card/0",
-        "h-24"
-      )}
-    >
-      <AnimatePresence>
-        {status.value === "connected" ? (
+    <AnimatePresence>
+      {status.value === "connected" && (
+        <motion.div
+          className={cn(
+            "fixed p-6 flex items-center justify-center",
+            "from-card via-card/90 to-card/0",
+            "h-24 bg-card border border-border rounded-lg shadow-sm"
+          )}
+          initial={focusMode ? { top: 'auto', bottom: 0 } : { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+          animate={focusMode ? { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' } : { top: 'auto', bottom: 0 }}
+          exit={{ opacity: 0, y: "100%" }}
+          transition={{ duration: 0.5 }}
+          style={{ boxShadow: shadow }}
+        >
           <motion.div
-            initial={{
-              y: "100%",
-              opacity: 0,
-              boxShadow: ''
-            }}
-            animate={{
-              y: 0,
-              opacity: 1,
-              boxShadow: shadow
-            }}
-            exit={{
-              y: "100%",
-              opacity: 0,
-              boxShadow: ''
-            }}
-            transition={{
-              boxShadow: { duration: 0.5 },
-              y: { type: "spring", stiffness: 300, damping: 30 }
-            }}
-            className={
-              "p-5 bg-card border border-border rounded-lg shadow-sm flex items-center gap-6"
-            }
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "100%", opacity: 0 }}
+            transition={{ y: { type: "spring", stiffness: 300, damping: 30 } }}
+            className="flex items-center gap-6 w-full"
           >
             <div className="flex h-full w-full">
               <div className="flex items-center justify-center w-2/3 border-r pr-6 border-gray-300">
@@ -131,17 +117,16 @@ export default function Controls({ consentProvided, focusMode }: ControlsProps) 
               </div>
             </div>
           </motion.div>
-        ) : null}
-      </AnimatePresence>
 
-      <Modal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onSend={handleSend}
-        title="Send a Message"
-        showInput={true} // Show the input field in this modal
-      />
-    </div>
+          <Modal
+            isOpen={isModalOpen}
+            onClose={() => setModalOpen(false)}
+            onSend={handleSend}
+            title="Send a Message"
+            showInput={true}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }
-

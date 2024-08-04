@@ -309,7 +309,7 @@ export default function ClientComponent({
         onToolCall={handleToolCall}
         resumedChatGroupId={chatGroupId}
       >
-        {!focusMode && <Messages ref={ref} />} {/* Conditionally render Messages */}
+        <Messages ref={ref} isVisible={!focusMode} /> {/* Conditionally render Messages */}
         <Controls consentProvided={consentProvided} focusMode={focusMode} /> {/* Pass consent and focus state to Controls */}
         <Start />
       </VoiceProvider>
