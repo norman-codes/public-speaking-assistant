@@ -72,3 +72,7 @@
     pointer-events: none; /* Allow interactions with elements below the overlay */
   }
 }
+
+.transition-shadow {
+  transition: box-shadow 0.5s ease-in-out;
+}

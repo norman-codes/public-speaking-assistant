@@ -28,7 +28,7 @@ export default function Controls({ consentProvided, focusMode }: ControlsProps) 
     if (consentProvided === null) {
       setShadow('0 0 10px 2px rgba(0, 0, 0, 0.2)');
     } else if (consentProvided) {
-      setShadow('0 0 10px 2px rgba(0, 255, 0, 0.5)');
+      setShadow('0 0 10px 2px rgba(0, 192, 23, 0.5)');
     } else {
       setShadow('0 0 10px 2px rgba(255, 0, 0, 0.5)');
     }
@@ -45,7 +45,7 @@ export default function Controls({ consentProvided, focusMode }: ControlsProps) 
         {status.value === "connected" && (
           <motion.div
             className={cn(
-              "fixed p-6 flex items-center justify-center",
+              "fixed p-6 flex items-center justify-center transition-shadow",
               "from-card via-card/90 to-card/0",
               "h-24 bg-card border border-border rounded-lg shadow-sm"
             )}
