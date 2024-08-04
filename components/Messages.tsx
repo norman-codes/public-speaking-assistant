@@ -22,10 +22,10 @@ const Messages = forwardRef<
           layoutScroll
           className={"grow rounded-md overflow-auto p-4"}
           ref={ref}
-          initial={{ opacity: 1 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0 }} // Start from fully transparent
+          animate={{ opacity: 1 }} // Fade to fully opaque
+          exit={{ opacity: 0 }} // Fade out to fully transparent
+          transition={{ opacity: { duration: 0.5 } }} // Smooth transition for opacity
         >
           <motion.div className={"max-w-2xl mx-auto w-full flex flex-col gap-4 pb-40"}>
             <AnimatePresence mode={"popLayout"}>
@@ -47,6 +47,7 @@ const Messages = forwardRef<
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 0 }}
+                      transition={{ opacity: { duration: 0.5 }, y: { duration: 0.5 } }} // Smooth transition for opacity and y-axis movement
                     >
                       <div className="flex">
                         <div className="flex-shrink-0 flex items-center border-r border-gray-200">
@@ -85,3 +86,4 @@ const Messages = forwardRef<
 });
 
 export default Messages;
+
