@@ -15,7 +15,9 @@ export const useAssistantControl = () => {
     };
 
     const handleCloseConnection = () => {
-      disconnect();
+      setTimeout(() => {
+        disconnect();
+      }, 1000)
     };
     
     const handleMuteAssistant = () => {
