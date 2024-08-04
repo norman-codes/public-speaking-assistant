@@ -6,6 +6,8 @@ interface MessageEvents {
   'close_connection': () => void;
   'mute_assistant': () => void;
   'unmute_assistant': () => void;
+  'consent_provided': () => void;
+  'consent_revoked': () => void;
 }
 
 class TypedEventEmitter extends EventEmitter {

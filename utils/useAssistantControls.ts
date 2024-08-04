@@ -24,13 +24,25 @@ export const useAssistantControl = () => {
 
     const handleUnmuteAssistant = () => {
       unmuteAudio();
-    }
+    };
+
+    const handleConsentProvided = () => {
+      console.log("Consent provided");
+      // Space for additional logic when consent is provided
+    };
+
+    const handleConsentRevoked = () => {
+      console.log("Consent revoked");
+      // Space for additional logic when consent is revoked
+    };
 
     messageEmitter.on('pause_assistant', handlePauseAssistant);
     messageEmitter.on('resume_assistant', handleResumeAssistant);
     messageEmitter.on('close_connection', handleCloseConnection);
     messageEmitter.on('mute_assistant', handleMuteAssistant);
     messageEmitter.on('unmute_assistant', handleUnmuteAssistant);
+    messageEmitter.on('consent_provided', handleConsentProvided);
+    messageEmitter.on('consent_revoked', handleConsentRevoked);
 
     return () => {
       messageEmitter.off('pause_assistant', handlePauseAssistant);
@@ -38,6 +50,8 @@ export const useAssistantControl = () => {
       messageEmitter.off('close_connection', handleCloseConnection);
       messageEmitter.off('mute_assistant', handleMuteAssistant);
       messageEmitter.off('unmute_assistant', handleUnmuteAssistant);
+      messageEmitter.off('consent_provided', handleConsentProvided);
+      messageEmitter.off('consent_revoked', handleConsentRevoked);
     };
   }, [sendPauseAssistantMessage, sendResumeAssistantMessage, disconnect, muteAudio]);
 };
