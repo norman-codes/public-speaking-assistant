@@ -3,7 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Play } from "lucide-react";
 import Image from 'next/image';
-import graphic from '../public/cropped_hand-drawn-mic-drawing-illustration.png'; // Ensure the path is correct
+import mic_drawing from '../public/mic_drawing.png'; // Ensure the path is correct
+import play_button_doodle from '../public/play_button_doodle.png'
 
 export default function Start() {
   const { status, connect } = useVoice();
@@ -30,8 +31,8 @@ export default function Start() {
           </div>
           <div className="mb-2">
             <Image
-              src={graphic}
-              alt="Graphic"
+              src={mic_drawing}
+              alt="Sketch of a microphone on a table."
               width={312} // Adjust width as necessary
               height={312} // Adjust height as necessary
               style={{
@@ -58,9 +59,11 @@ export default function Start() {
                 }}
               >
                 <span>
-                  <Play
-                    className={"size-4 opacity-50"}
-                    strokeWidth={2}
+                  <Image
+                    src={play_button_doodle}
+                    alt="Microphone Icon"
+                    width={20} // Adjust width as necessary
+                    height={20} // Adjust height as necessary
                   />
                 </span>
                 <span className={"font-mono"}>Start</span>
