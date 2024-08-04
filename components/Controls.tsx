@@ -49,7 +49,7 @@ export default function Controls() {
           >
             <div className="flex h-full w-full">
               <div className="flex items-center justify-center w-2/3 border-r pr-6 border-gray-300">
-                <div className={"relative grid h-16 w-64 shrink grow-0"}>
+                <div className={"relative grid h-16 w-72 shrink grow-0"}>
                   <WaveformFromFFT
                     micFft={micFft}
                     audioFft={fft}
@@ -59,7 +59,7 @@ export default function Controls() {
                   />
                 </div>
               </div>
-              <div className="flex items-center justify-evenly w-1/3 pl-6">
+              <div className="flex items-center justify-evenly w-1/3 pl-6 mr-2">
                 <Toggle
                   pressed={!isMuted}
                   onPressedChange={() => {
