@@ -8,13 +8,29 @@ import { cn } from "@/utils";
 import StopIcon from "./logos/StopIcon";
 import MutedMicrophoneIcon from "./logos/MutedMicrophoneIcon";
 import ActiveMicrophoneIcon from "./logos/ActiveMicrophoneIcon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from "./ui/modal"; // Import the Modal component
 import WritingIcon from "./logos/WritingIcon";
 
-export default function Controls() {
+// Define the type for the consentProvided prop
+interface ControlsProps {
+  consentProvided: boolean | null;
+}
+
+export default function Controls({ consentProvided }: ControlsProps) {
   const { disconnect, status, isMuted, unmute, mute, micFft, fft, sendUserInput } = useVoice();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [shadow, setShadow] = useState('');
+
+  useEffect(() => {
+    if (consentProvided === null) {
+      setShadow('0 0 0 0 rgba(0, 0, 0, 0)');
+    } else if (consentProvided) {
+      setShadow('0 0 10px 2px rgba(0, 255, 0, 0.5)');
+    } else {
+      setShadow('0 0 10px 2px rgba(255, 0, 0, 0.5)');
+    }
+  }, [consentProvided]);
 
   const handleSend = (message: string) => {
     sendUserInput(message);
@@ -34,14 +50,21 @@ export default function Controls() {
             initial={{
               y: "100%",
               opacity: 0,
+              boxShadow: ''
             }}
             animate={{
               y: 0,
               opacity: 1,
+              boxShadow: shadow
             }}
             exit={{
               y: "100%",
               opacity: 0,
+              boxShadow: ''
+            }}
+            transition={{
+              boxShadow: { duration: 0.5 }, // Adjust duration as needed
+              y: { type: "spring", stiffness: 300, damping: 30 }
             }}
             className={
               "p-5 bg-card border border-border rounded-lg shadow-sm flex items-center gap-6" // Changed p-4 to p-6 and gap-4 to gap-6 for more spacing
@@ -67,8 +90,8 @@ export default function Controls() {
                       unmute();
                     } else {
                       mute();
-                    }
-                  }}
+                    }}
+                  }
                 >
                   {isMuted ? (
                     <MutedMicrophoneIcon className={"size-6"} />

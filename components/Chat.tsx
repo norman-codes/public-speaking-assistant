@@ -85,6 +85,8 @@ const handleToolCall: ToolCallHandler = async (
     try {
       console.log("Consent granted!")
 
+      messageEmitter.emit("consent_provided"); // Emit event for provided consent
+
       return {
         type: 'tool_response',
         tool_call_id: toolCall.tool_call_id,
@@ -105,6 +107,8 @@ const handleToolCall: ToolCallHandler = async (
     try {
       console.log("Consent revoked!")
       
+      messageEmitter.emit("consent_revoked"); // Emit event for revoked consent
+
       return {
         type: 'tool_response',
         tool_call_id: toolCall.tool_call_id,
@@ -163,12 +167,32 @@ export default function ClientComponent({
   const timeout = useRef<number | null>(null);
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
   const [chatGroupId, setChatGroupId] = useState<string | undefined>(undefined);
+  const [consentProvided, setConsentProvided] = useState<boolean | null>(null); // Track consent state
 
   // Log chatGroupId whenever it changes
   useEffect(() => {
     console.log("Current Chat Group ID: ", chatGroupId);
     console.log("Chat Group ID updated to:", chatGroupId);
   }, [chatGroupId]);
+
+  // Listen for consent events
+  useEffect(() => {
+    const handleConsentProvided = () => {
+      setConsentProvided(true);
+    };
+
+    const handleConsentRevoked = () => {
+      setConsentProvided(false);
+    };
+
+    messageEmitter.on('consent_provided', handleConsentProvided);
+    messageEmitter.on('consent_revoked', handleConsentRevoked);
+
+    return () => {
+      messageEmitter.off('consent_provided', handleConsentProvided);
+      messageEmitter.off('consent_revoked', handleConsentRevoked);
+    };
+  }, []);
 
   return (
     <div
@@ -222,7 +246,7 @@ export default function ClientComponent({
         resumedChatGroupId={chatGroupId}
       >
         <Messages ref={ref} />
-        <Controls />
+        <Controls consentProvided={consentProvided} /> {/* Pass consent state to Controls */}
         <Start />
       </VoiceProvider>
     </div>
