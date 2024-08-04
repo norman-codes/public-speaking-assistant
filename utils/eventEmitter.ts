@@ -8,6 +8,8 @@ interface MessageEvents {
   'unmute_assistant': () => void;
   'consent_provided': () => void;
   'consent_revoked': () => void;
+  'enter_focus_mode': () => void;
+  'exit_focus_mode': () => void;
 }
 
 class TypedEventEmitter extends EventEmitter {

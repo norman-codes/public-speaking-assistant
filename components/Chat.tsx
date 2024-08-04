@@ -21,6 +21,7 @@ const handleToolCall: ToolCallHandler = async (
   if (toolCall.name === 'pauseAssistantWhenUserSaysStartPerformance') {
     try {
 
+      // Emit event for pausing the assistant
       messageEmitter.emit("pause_assistant");
 
       return {
@@ -42,6 +43,7 @@ const handleToolCall: ToolCallHandler = async (
   else if (toolCall.name === 'muteAssistantWhenUserSaysMuteYourself') {
     try {
 
+      // Emit event for muting the assistant
       messageEmitter.emit("mute_assistant");
 
       return {
@@ -63,6 +65,7 @@ const handleToolCall: ToolCallHandler = async (
   else if (toolCall.name === 'unmuteAssistantWhenUserSaysUnmuteYourself') {
     try {
 
+      // Emit event for unmuting the assistant
       messageEmitter.emit("unmute_assistant");
 
       return {
@@ -85,7 +88,8 @@ const handleToolCall: ToolCallHandler = async (
     try {
       console.log("Consent granted!")
 
-      messageEmitter.emit("consent_provided"); // Emit event for provided consent
+      // Emit event for provided consent
+      messageEmitter.emit("consent_provided");
 
       return {
         type: 'tool_response',
@@ -123,6 +127,52 @@ const handleToolCall: ToolCallHandler = async (
         code: 'consent_granted_tool_error',
         level: 'warn',
         content: 'There was an error with the consent revocation tool'
+      }
+    }
+  }
+  else if (toolCall.name === 'enterFocusMode') {
+    try {
+      console.log("ENTER focus mode indicator!")
+      
+      // Emit event for entering focus mode
+      messageEmitter.emit("enter_focus_mode");
+
+      return {
+        type: 'tool_response',
+        tool_call_id: toolCall.tool_call_id,
+        content: "Entering focus mode. The messages are now hidden.",
+      }
+    } catch (error) {
+      return {
+        type: 'tool_error',
+        tool_call_id: toolCall.tool_call_id,
+        error: 'Enter focus mode tool error',
+        code: 'enter_focus_mode_tool_error',
+        level: 'warn',
+        content: 'There was an error with the enter focus mode tool'
+      }
+    }
+  }
+  else if (toolCall.name === 'exitFocusMode') {
+    try {
+      console.log("EXIT focus mode indicator!")
+      
+      // Emit event for exiting focus mode
+      messageEmitter.emit("exit_focus_mode");
+
+      return {
+        type: 'tool_response',
+        tool_call_id: toolCall.tool_call_id,
+        content: "Exiting focus mode. The messages are now visible.",
+      }
+    } catch (error) {
+      return {
+        type: 'tool_error',
+        tool_call_id: toolCall.tool_call_id,
+        error: 'Exit focus mode tool error',
+        code: 'exit_focus_mode_tool_error',
+        level: 'warn',
+        content: 'There was an error with the exit focus mode tool'
       }
     }
   }
@@ -169,6 +219,7 @@ export default function ClientComponent({
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
   const [chatGroupId, setChatGroupId] = useState<string | undefined>(undefined);
   const [consentProvided, setConsentProvided] = useState<boolean | null>(null); // Track consent state
+  const [focusMode, setFocusMode] = useState<boolean>(false); // Track focus mode state
 
   // Log chatGroupId whenever it changes
   useEffect(() => {
@@ -176,7 +227,7 @@ export default function ClientComponent({
     console.log("Chat Group ID updated to:", chatGroupId);
   }, [chatGroupId]);
 
-  // Listen for consent events
+  // Listen for consent and focus mode events
   useEffect(() => {
     const handleConsentProvided = () => {
       setConsentProvided(true);
@@ -186,12 +237,24 @@ export default function ClientComponent({
       setConsentProvided(false);
     };
 
+    const handleEnterFocusMode = () => {
+      setFocusMode(true);
+    };
+
+    const handleExitFocusMode = () => {
+      setFocusMode(false);
+    };
+
     messageEmitter.on('consent_provided', handleConsentProvided);
     messageEmitter.on('consent_revoked', handleConsentRevoked);
+    messageEmitter.on('enter_focus_mode', handleEnterFocusMode);
+    messageEmitter.on('exit_focus_mode', handleExitFocusMode);
 
     return () => {
       messageEmitter.off('consent_provided', handleConsentProvided);
       messageEmitter.off('consent_revoked', handleConsentRevoked);
+      messageEmitter.off('enter_focus_mode', handleEnterFocusMode);
+      messageEmitter.off('exit_focus_mode', handleExitFocusMode);
     };
   }, []);
 
@@ -246,10 +309,11 @@ export default function ClientComponent({
         onToolCall={handleToolCall}
         resumedChatGroupId={chatGroupId}
       >
-        <Messages ref={ref} />
-        <Controls consentProvided={consentProvided} /> {/* Pass consent state to Controls */}
+        {!focusMode && <Messages ref={ref} />} {/* Conditionally render Messages */}
+        <Controls consentProvided={consentProvided} focusMode={focusMode} /> {/* Pass consent and focus state to Controls */}
         <Start />
       </VoiceProvider>
     </div>
   );
 }
+

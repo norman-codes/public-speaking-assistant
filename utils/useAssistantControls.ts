@@ -45,6 +45,16 @@ export const useAssistantControl = () => {
       }, 5000);
     };
 
+    const handleEnterFocusMode = () => {
+      console.log("Entering focus mode!");
+      // Space for additional logic when entering focus mode
+    };
+
+    const handleExitFocusMode = () => {
+      console.log("Exiting focus mode!");
+      // Space for additional logic when entering focus mode
+    }
+
     messageEmitter.on('pause_assistant', handlePauseAssistant);
     messageEmitter.on('resume_assistant', handleResumeAssistant);
     messageEmitter.on('close_connection', handleCloseConnection);
@@ -52,6 +62,8 @@ export const useAssistantControl = () => {
     messageEmitter.on('unmute_assistant', handleUnmuteAssistant);
     messageEmitter.on('consent_provided', handleConsentProvided);
     messageEmitter.on('consent_revoked', handleConsentRevoked);
+    messageEmitter.on('enter_focus_mode', handleEnterFocusMode);
+    messageEmitter.on('exit_focus_mode', handleExitFocusMode);
 
     return () => {
       messageEmitter.off('pause_assistant', handlePauseAssistant);
@@ -61,6 +73,8 @@ export const useAssistantControl = () => {
       messageEmitter.off('unmute_assistant', handleUnmuteAssistant);
       messageEmitter.off('consent_provided', handleConsentProvided);
       messageEmitter.off('consent_revoked', handleConsentRevoked);
+      messageEmitter.off('enter_focus_mode', handleEnterFocusMode);
+      messageEmitter.off('exit_focus_mode', handleExitFocusMode);
     };
-  }, [sendPauseAssistantMessage, sendResumeAssistantMessage, disconnect, muteAudio]);
+  }, [sendPauseAssistantMessage, sendResumeAssistantMessage, disconnect, muteAudio, unmuteAudio, sendAssistantInput]);
 };

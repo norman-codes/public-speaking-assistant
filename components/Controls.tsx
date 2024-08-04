@@ -12,12 +12,13 @@ import { useState, useEffect } from "react";
 import Modal from "./ui/modal";
 import WritingIcon from "./logos/WritingIcon";
 
-// Define the type for the consentProvided prop
+// Define the type for the props
 interface ControlsProps {
   consentProvided: boolean | null;
+  focusMode: boolean;
 }
 
-export default function Controls({ consentProvided }: ControlsProps) {
+export default function Controls({ consentProvided, focusMode }: ControlsProps) {
   const { disconnect, status, isMuted, unmute, mute, micFft, fft, sendUserInput } = useVoice();
   const [isModalOpen, setModalOpen] = useState(false);
   const [shadow, setShadow] = useState('');
@@ -41,7 +42,9 @@ export default function Controls({ consentProvided }: ControlsProps) {
   return (
     <div
       className={cn(
-        "fixed bottom-10 left-0 w-full p-6 flex items-center justify-center", // Changed p-4 to p-6 for more padding
+        "fixed", // Position fixed
+        focusMode ? "top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" : "bottom-10 left-0 w-full", // Center in focus mode, bottom otherwise
+        "p-6 flex items-center justify-center", // Changed p-4 to p-6 for more padding
         "from-card via-card/90 to-card/0",
         "h-24"
       )}
@@ -141,3 +144,4 @@ export default function Controls({ consentProvided }: ControlsProps) {
     </div>
   );
 }
+
