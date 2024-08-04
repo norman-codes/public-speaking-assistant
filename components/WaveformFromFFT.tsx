@@ -10,6 +10,7 @@ export default function WaveformFromFFT({
   audioFft,
   micColor,
   audioColor,
+  isAudioMuted,
   micThreshold = 0.7,
   className,
 }: {
@@ -17,6 +18,7 @@ export default function WaveformFromFFT({
   audioFft: number[];
   micColor: string;
   audioColor: string;
+  isAudioMuted: boolean;
   micThreshold?: number;
   className?: string;
 }) {
@@ -66,7 +68,7 @@ export default function WaveformFromFFT({
                   y={audioYOffset}
                   rx={4}
                   fill={audioColor}
-                  opacity={0.7} // Fixed opacity for audio FFT
+                  opacity={isAudioMuted ? 0.3 : 0.7} // Change opacity if muted
                 />
               );
             })}

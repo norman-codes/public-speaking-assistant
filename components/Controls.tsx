@@ -19,7 +19,7 @@ interface ControlsProps {
 }
 
 export default function Controls({ consentProvided, focusMode }: ControlsProps) {
-  const { disconnect, status, isMuted, unmute, mute, micFft, fft, sendUserInput } = useVoice();
+  const { disconnect, status, isMuted, unmute, mute, isAudioMuted, micFft, fft, sendUserInput } = useVoice();
   const [isModalOpen, setModalOpen] = useState(false);
   const [shadow, setShadow] = useState('');
 
@@ -73,6 +73,7 @@ export default function Controls({ consentProvided, focusMode }: ControlsProps) 
                       audioFft={fft}
                       micColor={"red"}
                       audioColor={"blue"}
+                      isAudioMuted={isAudioMuted}
                       className={"fill-current"}
                     />
                   </div>
