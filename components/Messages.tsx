@@ -5,9 +5,8 @@ import Expressions from "./Expressions";
 import { AnimatePresence, motion } from "framer-motion";
 import { ComponentRef, forwardRef } from "react";
 import { useAssistantControl } from "@/utils/useAssistantControls";
-import Image from 'next/image';
-import personIcon from '../public/person_doodle.png';
-import robotIcon from '../public/robot_doodle.png';
+import UserIcon from '../components/logos/UserIcon';
+import AssistantIcon from '../components/logos/AssistantIcon';
 
 const Messages = forwardRef<
   ComponentRef<typeof motion.div>,
@@ -57,9 +56,9 @@ const Messages = forwardRef<
                   <div className="flex">
                     <div className="flex-shrink-0 flex items-center border-r border-gray-200">
                       {msg.type === "user_message" ? (
-                        <Image src={personIcon} alt="User icon - a person." className={"ml-4 mr-4"} width={28} height={28} />
+                        <UserIcon width='64' height='64' />
                       ) : (
-                        <Image src={robotIcon} alt="Assistant icon - a robot." width={56} height={56} />
+                        <AssistantIcon width='56' height='56' />
                       )}
                     </div>
                     <div className="flex-grow p-3">

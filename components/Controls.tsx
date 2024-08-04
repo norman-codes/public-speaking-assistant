@@ -1,11 +1,13 @@
 "use client";
 import { useVoice } from "@humeai/voice-react";
 import { Button } from "./ui/button";
-import { Mic, MicOff, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Toggle } from "./ui/toggle";
 import WaveformFromFFT from "./WaveformFromFFT";
 import { cn } from "@/utils";
+import StopIcon from "./logos/StopIcon";
+import MutedMicrophoneIcon from "./logos/MutedMicrophoneIcon";
+import ActiveMicrophoneIcon from "./logos/ActiveMicrophoneIcon";
 
 export default function Controls() {
   const { disconnect, status, isMuted, unmute, mute, micFft, fft } = useVoice();
@@ -48,9 +50,9 @@ export default function Controls() {
               }}
             >
               {isMuted ? (
-                <MicOff className={"size-5"} /> // Changed size-4 to size-5 for larger icon
+                <MutedMicrophoneIcon className={"size-6"} />
               ) : (
-                <Mic className={"size-5"} /> // Changed size-4 to size-5 for larger icon
+                <ActiveMicrophoneIcon className={"size-6"} />
               )}
             </Toggle>
 
@@ -69,16 +71,11 @@ export default function Controls() {
               onClick={() => {
                 disconnect();
               }}
-              variant={"destructive"}
+              variant={"ghost"}
             >
               <span>
-                <X
-                  className={"size-5 opacity-50"} // Changed size-4 to size-5 for larger icon
-                  strokeWidth={2}
-                  stroke={"currentColor"}
-                />
+                <StopIcon fill="red" className={"size-6"} />
               </span>
-              <span>Stop</span>
             </Button>
           </motion.div>
         ) : null}

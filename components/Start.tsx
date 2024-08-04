@@ -1,10 +1,9 @@
 import { useVoice } from "@humeai/voice-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Button } from "./ui/button";
-import { Play } from "lucide-react";
 import Image from 'next/image';
-import mic_drawing from '../public/mic_drawing.png'; // Ensure the path is correct
-import play_button_doodle from '../public/play_button_doodle.png'
+import mic_drawing from '../public/mic_drawing.png';
+import StartIcon from "./logos/StartIcon";
 
 export default function Start() {
   const { status, connect } = useVoice();
@@ -59,12 +58,7 @@ export default function Start() {
                 }}
               >
                 <span>
-                  <Image
-                    src={play_button_doodle}
-                    alt="Microphone Icon"
-                    width={20} // Adjust width as necessary
-                    height={20} // Adjust height as necessary
-                  />
+                  <StartIcon width="20" height="20"/>
                 </span>
                 <span className={"font-mono"}>Start</span>
               </Button>

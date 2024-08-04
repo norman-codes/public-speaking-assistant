@@ -64,7 +64,6 @@ Resumability is achieved by managing the chat group ID state and updating it upo
 <a href="https://www.freepik.com/free-vector/hand-drawn-mic-drawing-illustration_82457356.htm#fromView=search&page=1&position=31&uuid=73138e02-1f4e-459e-9b7a-02fa4326c889">Image by freepik</a>
 
 Icons:
-- https://www.svgrepo.com/svg/43284/octocat-hand-drawn-logo-outline
 - https://www.svgrepo.com/svg/44827/microphone-drawing
 - https://www.svgrepo.com/svg/112390/delete-hand-drawn-cross-symbol-outline
 - https://www.svgrepo.com/svg/2030/arrow-point-hand-drawn-outline-pointing-to-right-direction
