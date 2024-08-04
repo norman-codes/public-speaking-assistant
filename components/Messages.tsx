@@ -70,7 +70,7 @@ const Messages = forwardRef<
                         {msg.message.role}
                       </div>
                       <div className={"pb-2 font-mono"}>{msg.message.content}</div>
-                      {msg.type === "user_message" && (
+                      {msg.type === "user_message" && msg.from_text === false && (
                         <Expressions values={msg.models.prosody?.scores ?? {}} />
                       )}
                     </div>

@@ -8,9 +8,18 @@ import { cn } from "@/utils";
 import StopIcon from "./logos/StopIcon";
 import MutedMicrophoneIcon from "./logos/MutedMicrophoneIcon";
 import ActiveMicrophoneIcon from "./logos/ActiveMicrophoneIcon";
+import { useState } from "react";
+import Modal from "./ui/modal"; // Import the Modal component
 
 export default function Controls() {
-  const { disconnect, status, isMuted, unmute, mute, micFft, fft } = useVoice();
+  const { disconnect, status, isMuted, unmute, mute, micFft, fft, sendUserInput } = useVoice();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleSend = (message: string) => {
+    console.log("Message to send:", message);
+    sendUserInput(message)
+    // Add WebSocket or message sending logic here
+  };
 
   return (
     <div
@@ -69,6 +78,16 @@ export default function Controls() {
             <Button
               className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
               onClick={() => {
+                setModalOpen(true);
+              }}
+              variant={"ghost"}
+            >
+              <span>Send Message</span>
+            </Button>
+
+            <Button
+              className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
+              onClick={() => {
                 disconnect();
               }}
               variant={"ghost"}
@@ -80,6 +99,14 @@ export default function Controls() {
           </motion.div>
         ) : null}
       </AnimatePresence>
+
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onSend={handleSend}
+        title="Send a Message"
+        showInput={true} // Show the input field in this modal
+      />
     </div>
   );
 }
