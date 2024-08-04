@@ -10,6 +10,7 @@ import Modal from "./ui/modal";
 export const Nav = () => {
   const [isAboutModalOpen, setisAboutModalOpen] = useState(false);
   const [isHowToModalOpen, setisHowToModalOpen] = useState(false);
+  const [isPrivacyModalOpen, setisPrivacyModalOpen] = useState(false);
 
   return (
     <div className={"px-4 py-2 flex items-center h-14 z-50 bg-transparent"}>
@@ -22,6 +23,7 @@ export const Nav = () => {
       </div>
       <div className={"flex-1 flex justify-center gap-4"}>
         <Button className={"font-mono font-bold"} variant="link" onClick={() => setisAboutModalOpen(true)}>About</Button>
+        <Button className={"font-mono font-bold"} variant="link" onClick={() => setisPrivacyModalOpen(true)}>Privacy</Button>
         <Button className={"font-mono font-bold"} variant="link" onClick={() => setisHowToModalOpen(true)}>How To</Button>
       </div>
       <div className={"flex-1 flex justify-end items-center gap-1"}>
@@ -33,12 +35,15 @@ export const Nav = () => {
       </div>
 
       <Modal isOpen={isAboutModalOpen} onClose={() => setisAboutModalOpen(false)} title="What is this?">
-        <p>About the application.</p>
         <p>This will contain information about what this is used for and demonstrates.</p>
       </Modal>
 
+      <Modal isOpen={isPrivacyModalOpen} onClose={() => setisPrivacyModalOpen(false)} title="Can I practice confidential material?">
+        <p>The answer is no, unless the user enables no data retention - go into more detail.</p>
+      </Modal>
+
       <Modal isOpen={isHowToModalOpen} onClose={() => setisHowToModalOpen(false)} title="How do I use it?">
-        <p>Your content goes here.</p>
+        <p>Basic overview of the user flow and various tools at play.</p>
       </Modal>
     </div>
   );

@@ -9,7 +9,7 @@ import StopIcon from "./logos/StopIcon";
 import MutedMicrophoneIcon from "./logos/MutedMicrophoneIcon";
 import ActiveMicrophoneIcon from "./logos/ActiveMicrophoneIcon";
 import { useState, useEffect } from "react";
-import Modal from "./ui/modal"; // Import the Modal component
+import Modal from "./ui/modal";
 import WritingIcon from "./logos/WritingIcon";
 
 // Define the type for the consentProvided prop
@@ -22,6 +22,7 @@ export default function Controls({ consentProvided }: ControlsProps) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [shadow, setShadow] = useState('');
 
+  // Set a faint glow around the controls based on the state of consent
   useEffect(() => {
     if (consentProvided === null) {
       setShadow('0 0 0 0 rgba(0, 0, 0, 0)');
@@ -32,6 +33,7 @@ export default function Controls({ consentProvided }: ControlsProps) {
     }
   }, [consentProvided]);
 
+  // user text input handler
   const handleSend = (message: string) => {
     sendUserInput(message);
   };
@@ -41,7 +43,7 @@ export default function Controls({ consentProvided }: ControlsProps) {
       className={cn(
         "fixed bottom-10 left-0 w-full p-6 flex items-center justify-center", // Changed p-4 to p-6 for more padding
         "from-card via-card/90 to-card/0",
-        "h-24" // Added height for the container
+        "h-24"
       )}
     >
       <AnimatePresence>
@@ -63,11 +65,11 @@ export default function Controls({ consentProvided }: ControlsProps) {
               boxShadow: ''
             }}
             transition={{
-              boxShadow: { duration: 0.5 }, // Adjust duration as needed
+              boxShadow: { duration: 0.5 },
               y: { type: "spring", stiffness: 300, damping: 30 }
             }}
             className={
-              "p-5 bg-card border border-border rounded-lg shadow-sm flex items-center gap-6" // Changed p-4 to p-6 and gap-4 to gap-6 for more spacing
+              "p-5 bg-card border border-border rounded-lg shadow-sm flex items-center gap-6"
             }
           >
             <div className="flex h-full w-full">
@@ -101,7 +103,7 @@ export default function Controls({ consentProvided }: ControlsProps) {
                 </Toggle>
 
                 <Button
-                  className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
+                  className={"flex items-center gap-2"}
                   onClick={() => {
                     setModalOpen(true);
                   }}
@@ -113,7 +115,7 @@ export default function Controls({ consentProvided }: ControlsProps) {
                 </Button>
 
                 <Button
-                  className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
+                  className={"flex items-center gap-2"}
                   onClick={() => {
                     disconnect();
                   }}
