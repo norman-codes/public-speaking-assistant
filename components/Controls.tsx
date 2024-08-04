@@ -17,7 +17,7 @@ export default function Controls() {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleSend = (message: string) => {
-    sendUserInput(message)
+    sendUserInput(message);
   };
 
   return (
@@ -44,59 +44,64 @@ export default function Controls() {
               opacity: 0,
             }}
             className={
-              "p-6 bg-card border border-border rounded-lg shadow-sm flex items-center gap-6" // Changed p-4 to p-6 and gap-4 to gap-6 for more spacing
+              "p-5 bg-card border border-border rounded-lg shadow-sm flex items-center gap-6" // Changed p-4 to p-6 and gap-4 to gap-6 for more spacing
             }
           >
-            <Toggle
-              pressed={!isMuted}
-              onPressedChange={() => {
-                if (isMuted) {
-                  unmute();
-                } else {
-                  mute();
-                }
-              }}
-            >
-              {isMuted ? (
-                <MutedMicrophoneIcon className={"size-6"} />
-              ) : (
-                <ActiveMicrophoneIcon className={"size-6"} />
-              )}
-            </Toggle>
+            <div className="flex h-full w-full">
+              <div className="flex items-center justify-center w-2/3 border-r pr-6 border-gray-300">
+                <div className={"relative grid h-16 w-64 shrink grow-0"}>
+                  <WaveformFromFFT
+                    micFft={micFft}
+                    audioFft={fft}
+                    micColor={"red"}
+                    audioColor={"blue"}
+                    className={"fill-current"}
+                  />
+                </div>
+              </div>
+              <div className="flex items-center justify-evenly w-1/3 pl-6">
+                <Toggle
+                  pressed={!isMuted}
+                  onPressedChange={() => {
+                    if (isMuted) {
+                      unmute();
+                    } else {
+                      mute();
+                    }
+                  }}
+                >
+                  {isMuted ? (
+                    <MutedMicrophoneIcon className={"size-6"} />
+                  ) : (
+                    <ActiveMicrophoneIcon className={"size-6"} />
+                  )}
+                </Toggle>
 
-            <div className={"relative grid h-16 w-64 shrink grow-0"}>
-              <WaveformFromFFT
-                micFft={micFft}
-                audioFft={fft}
-                micColor={"red"}
-                audioColor={"blue"}
-                className={"fill-current"}
-              />
+                <Button
+                  className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
+                  onClick={() => {
+                    setModalOpen(true);
+                  }}
+                  variant={"ghost"}
+                >
+                  <span>
+                    <WritingIcon className={"w-10 h-10"} />
+                  </span>
+                </Button>
+
+                <Button
+                  className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
+                  onClick={() => {
+                    disconnect();
+                  }}
+                  variant={"ghost"}
+                >
+                  <span>
+                    <StopIcon fill="red" className={"size-6"} />
+                  </span>
+                </Button>
+              </div>
             </div>
-
-            <Button
-              className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
-              onClick={() => {
-                setModalOpen(true);
-              }}
-              variant={"ghost"}
-            >
-              <span>
-                <WritingIcon className={"w-10 h-10"}/>
-              </span>
-            </Button>
-
-            <Button
-              className={"flex items-center gap-2"} // Changed gap-1 to gap-2 for more spacing
-              onClick={() => {
-                disconnect();
-              }}
-              variant={"ghost"}
-            >
-              <span>
-                <StopIcon fill="red" className={"size-6"} />
-              </span>
-            </Button>
           </motion.div>
         ) : null}
       </AnimatePresence>
