@@ -69,3 +69,4 @@ Icons:
 - https://www.svgrepo.com/svg/2030/arrow-point-hand-drawn-outline-pointing-to-right-direction
 - https://www.svgrepo.com/svg/452661/robot-neutral
 - https://www.svgrepo.com/svg/452535/superhero-standing
+- https://www.svgrepo.com/svg/452438/agreement

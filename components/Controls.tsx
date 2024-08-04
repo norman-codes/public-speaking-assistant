@@ -10,15 +10,14 @@ import MutedMicrophoneIcon from "./logos/MutedMicrophoneIcon";
 import ActiveMicrophoneIcon from "./logos/ActiveMicrophoneIcon";
 import { useState } from "react";
 import Modal from "./ui/modal"; // Import the Modal component
+import WritingIcon from "./logos/WritingIcon";
 
 export default function Controls() {
   const { disconnect, status, isMuted, unmute, mute, micFft, fft, sendUserInput } = useVoice();
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleSend = (message: string) => {
-    console.log("Message to send:", message);
     sendUserInput(message)
-    // Add WebSocket or message sending logic here
   };
 
   return (
@@ -82,7 +81,9 @@ export default function Controls() {
               }}
               variant={"ghost"}
             >
-              <span>Send Message</span>
+              <span>
+                <WritingIcon className={"w-10 h-10"}/>
+              </span>
             </Button>
 
             <Button

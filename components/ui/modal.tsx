@@ -30,6 +30,7 @@ const Modal = ({ isOpen, onClose, onSend, title, showInput = false, children }: 
         <h3 className="font-serif text-3xl">{title}</h3>
         {showInput ? (
           <>
+            <p className="font-mono mb-2">Please type your message below.</p>
             <input
               type="text"
               value={message}
