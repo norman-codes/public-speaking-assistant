@@ -23,7 +23,7 @@ If you have questions, require assistance, or wish to engage in discussions pert
 
 ### Resumability
 
-Resumability is achieved by managing the chat group ID state and updating it upon receiving specific WebSocket messages. The chat group ID is also stored in the browser's local storage to preserve its value across sessions.
+Resumability is achieved by managing the chat group ID state and updating it upon receiving specific WebSocket messages. The chat group ID is also stored in the browser's [local storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) to preserve its value across sessions.
 
 Here’s a step-by-step breakdown:
 
