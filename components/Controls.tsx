@@ -16,9 +16,10 @@ import WritingIcon from "./logos/WritingIcon";
 interface ControlsProps {
   consentProvided: boolean | null;
   focusMode: boolean;
+  isPaused: boolean;
 }
 
-export default function Controls({ consentProvided, focusMode }: ControlsProps) {
+export default function Controls({ consentProvided, focusMode, isPaused }: ControlsProps) {
   const { disconnect, status, isMuted, unmute, mute, isAudioMuted, micFft, fft, sendUserInput } = useVoice();
   const [isModalOpen, setModalOpen] = useState(false);
   const [shadow, setShadow] = useState('');
@@ -36,6 +37,15 @@ export default function Controls({ consentProvided, focusMode }: ControlsProps) 
       setShadow('0 0 10px 2px rgba(255, 0, 0, 0.5)');
     }
   }, [consentProvided]);
+
+  // Add the yellow glow for paused state
+  useEffect(() => {
+    if (isPaused) {
+      setShadow('0 0 10px 2px rgba(255, 202, 0, 0.5)');
+    } else {
+      setShadow('0 0 10px 2px rgba(0, 0, 0, 0.2)');
+    }
+  }, [isPaused]);
 
   // user text input handler
   const handleSend = (message: string) => {

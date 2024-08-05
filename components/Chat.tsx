@@ -49,7 +49,7 @@ const handleToolCall: ToolCallHandler = async (
       return {
         type: 'tool_response',
         tool_call_id: toolCall.tool_call_id,
-        content: "",
+        content: "Assistant muted. Assistant will generate messages but the user will not hear them.",
       };
     } catch (error) {
       return {
@@ -71,7 +71,7 @@ const handleToolCall: ToolCallHandler = async (
       return {
         type: 'tool_response',
         tool_call_id: toolCall.tool_call_id,
-        content: "",
+        content: "Assistant unmuted. The user can now both see and hear the assistant's messages.",
       };
     } catch (error) {
       return {
@@ -94,7 +94,7 @@ const handleToolCall: ToolCallHandler = async (
       return {
         type: 'tool_response',
         tool_call_id: toolCall.tool_call_id,
-        content: "",
+        content: "Thank you. Let's get started.",
       }
     } catch (error) {
       return {
@@ -117,7 +117,7 @@ const handleToolCall: ToolCallHandler = async (
       return {
         type: 'tool_response',
         tool_call_id: toolCall.tool_call_id,
-        content: "",
+        content: "I understand and thank you for your time. The conversation will end now.",
       }
     } catch (error) {
       return {
@@ -185,7 +185,7 @@ const handleToolCall: ToolCallHandler = async (
       return {
         type: 'tool_response',
         tool_call_id: toolCall.tool_call_id,
-        content: "",
+        content: "Thank you for your time. The chat will now end.",
       }
     } catch (error) {
       return {
@@ -220,6 +220,7 @@ export default function ClientComponent({
   const [chatGroupId, setChatGroupId] = useState<string | undefined>(undefined);
   const [consentProvided, setConsentProvided] = useState<boolean | null>(null); // Track consent state
   const [focusMode, setFocusMode] = useState<boolean>(false); // Track focus mode state
+  const [isPaused, setIsPaused] = useState<boolean>(false); // Track paused state
 
   // Log chatGroupId whenever it changes
   useEffect(() => {
@@ -245,16 +246,28 @@ export default function ClientComponent({
       setFocusMode(false);
     };
 
+    const handlePauseAssistant = () => {
+      setIsPaused(true);
+    };
+
+    const handleResumeAssistant = () => {
+      setIsPaused(false);
+    };
+
     messageEmitter.on('consent_provided', handleConsentProvided);
     messageEmitter.on('consent_revoked', handleConsentRevoked);
     messageEmitter.on('enter_focus_mode', handleEnterFocusMode);
     messageEmitter.on('exit_focus_mode', handleExitFocusMode);
+    messageEmitter.on('pause_assistant', handlePauseAssistant);
+    messageEmitter.on('resume_assistant', handleResumeAssistant);
 
     return () => {
       messageEmitter.off('consent_provided', handleConsentProvided);
       messageEmitter.off('consent_revoked', handleConsentRevoked);
       messageEmitter.off('enter_focus_mode', handleEnterFocusMode);
       messageEmitter.off('exit_focus_mode', handleExitFocusMode);
+      messageEmitter.off('pause_assistant', handlePauseAssistant);
+      messageEmitter.off('resume_assistant', handleResumeAssistant);
     };
   }, []);
 
@@ -310,7 +323,7 @@ export default function ClientComponent({
         resumedChatGroupId={chatGroupId}
       >
         <Messages ref={ref} isVisible={!focusMode} /> {/* Conditionally render Messages */}
-        <Controls consentProvided={consentProvided} focusMode={focusMode} /> {/* Pass consent and focus state to Controls */}
+        <Controls consentProvided={consentProvided} focusMode={focusMode} isPaused={isPaused} /> {/* Pass consent, focus, and pause states to Controls */}
         <Start />
       </VoiceProvider>
     </div>
