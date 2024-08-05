@@ -18,7 +18,7 @@ const handleToolCall: ToolCallHandler = async (
 ): Promise<ToolResponse | ToolError> => {
   console.log("Tool call received", toolCall);
 
-  if (toolCall.name === 'pauseAssistantWhenUserSaysStartPerformance') {
+  if (toolCall.name === 'pauseAssistant') {
     try {
 
       // Emit event for pausing the assistant
@@ -40,7 +40,7 @@ const handleToolCall: ToolCallHandler = async (
       };
     }
   }
-  else if (toolCall.name === 'muteAssistantWhenUserSaysMuteYourself') {
+  else if (toolCall.name === 'muteAssistant') {
     try {
 
       // Emit event for muting the assistant
@@ -62,7 +62,7 @@ const handleToolCall: ToolCallHandler = async (
       };
     }
   }
-  else if (toolCall.name === 'unmuteAssistantWhenUserSaysUnmuteYourself') {
+  else if (toolCall.name === 'unmuteAssistant') {
     try {
 
       // Emit event for unmuting the assistant
@@ -176,7 +176,7 @@ const handleToolCall: ToolCallHandler = async (
       }
     }
   }
-  else if (toolCall.name === 'stopChatWhenUserSaysStopChat') {
+  else if (toolCall.name === 'stopChat') {
     try {
 
       // Emit the chat closing event

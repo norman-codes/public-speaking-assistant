@@ -11,7 +11,7 @@ export default function WaveformFromFFT({
   micColor,
   audioColor,
   isAudioMuted,
-  micThreshold = 0.7,
+  micThreshold = 0.6,
   className,
 }: {
   micFft: number[];
