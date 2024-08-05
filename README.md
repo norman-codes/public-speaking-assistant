@@ -17,6 +17,10 @@ If you have questions, require assistance, or wish to engage in discussions pert
 
 ## Feature Implementations
 
+### EVI Configuration
+
+(explaining how to make the EVI config for this project)
+
 ### Voice Commands via Tool Use and Message Emitter
 
 (explaining how tools are used to interact with the assistant and a message emitter is used to resume it)
