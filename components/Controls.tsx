@@ -29,6 +29,9 @@ export default function Controls({ consentProvided, focusMode }: ControlsProps) 
       setShadow('0 0 10px 2px rgba(0, 0, 0, 0.2)');
     } else if (consentProvided) {
       setShadow('0 0 10px 2px rgba(0, 192, 23, 0.5)');
+      setTimeout(() => {
+        setShadow('0 0 10px 2px rgba(0, 0, 0, 0.2)')
+      }, 1000)
     } else {
       setShadow('0 0 10px 2px rgba(255, 0, 0, 0.5)');
     }
