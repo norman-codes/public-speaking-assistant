@@ -222,6 +222,21 @@ export default function ClientComponent({
   const [focusMode, setFocusMode] = useState<boolean>(false); // Track focus mode state
   const [isPaused, setIsPaused] = useState<boolean>(false); // Track paused state
 
+  // Retrieve chatGroupId from local storage on component mount
+  useEffect(() => {
+    const savedChatGroupId = localStorage.getItem('chatGroupId');
+    if (savedChatGroupId) {
+      setChatGroupId(savedChatGroupId);
+    }
+  }, []);
+
+  // Save chatGroupId to local storage whenever it changes
+  useEffect(() => {
+    if (chatGroupId) {
+      localStorage.setItem('chatGroupId', chatGroupId);
+    }
+  }, [chatGroupId]);
+
   // Log chatGroupId whenever it changes
   useEffect(() => {
     console.log("Current Chat Group ID: ", chatGroupId);

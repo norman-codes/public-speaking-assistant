@@ -1,24 +1,15 @@
 <div align="center">
   <img src="https://storage.googleapis.com/hume-public-logos/hume/hume-banner.png">
-  <h1>EVI Next.js App Router Example</h1>
+  <h1>EVI Example: Public Speaking Assistant</h1>
 </div>
 
-![preview.png](preview.png)
+<div align="center">
+  <img src="preview.png" width="463" height="683">
+</div>
 
 ## Overview
 
-This project features a sample implementation of Hume's [Empathic Voice Interface](https://hume.docs.buildwithfern.com/docs/empathic-voice-interface-evi/overview) using Hume's React SDK. Here, we have a simple EVI that uses the Next.js App Router.
-
-## Project deployment
-
-Click the button below to deploy this example project with Vercel:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fhumeai%2Fhume-evi-next-js-starter&env=HUME_API_KEY,HUME_CLIENT_SECRET)
-
-Below are the steps to completing deployment:
-
-1. Create a Git Repository for your project.
-2. Provide the required environment variables. To get your API key and Client Secret key, log into the portal and visit the [API keys page](https://beta.hume.ai/settings/keys).
+This project features a sample implementation of Hume's [Empathic Voice Interface](https://hume.docs.buildwithfern.com/docs/empathic-voice-interface-evi/overview) using Hume's React SDK.
 
 ## Support
 
@@ -28,11 +19,13 @@ If you have questions, require assistance, or wish to engage in discussions pert
 
 ### Voice Commands via Tool Use and Message Emitter
 
-(explaining how a tool is used to pause the assistant and a message emitter is used to resume it)
+(explaining how tools are used to interact with the assistant and a message emitter is used to resume it)
 
 ### Resumability
 
-Resumability is achieved by managing the chat group ID state and updating it upon receiving specific WebSocket messages. Here’s a step-by-step breakdown:
+Resumability is achieved by managing the chat group ID state and updating it upon receiving specific WebSocket messages. The chat group ID is also stored in the browser's local storage to preserve its value across sessions.
+
+Here’s a step-by-step breakdown:
 
 1. **State Initialization**: The `chatGroupId` state is initialized to `undefined`.
   ```js
@@ -45,6 +38,7 @@ Resumability is achieved by managing the chat group ID state and updating it upo
   onMessage={(message) => {
     if (message.type === "chat_metadata") {
       setChatGroupId(message.chat_group_id);
+      localStorage.setItem('chatGroupId', message.chat_group_id);
     }
   }}
   ```
@@ -57,6 +51,8 @@ Resumability is achieved by managing the chat group ID state and updating it upo
     // ... other props
   >
   ```
+#### Resetting the chat group ID
+Clear the local storage to reset the chat group ID. In most browsers, this can be done via the Developer Tools under a "Storage" tab.
 
 ## Image Attribution
 <a href="https://www.freepik.com/free-photo/white-paper-texture_1033849.htm#query=paper%20texture&position=30&from_view=keyword&track=ais_hybrid&uuid=d40bacf0-567c-4d14-bb2b-f7cf692e926b">Image by kues1</a> on Freepik
