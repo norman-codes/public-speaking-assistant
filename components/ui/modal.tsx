@@ -60,7 +60,7 @@ const Modal = ({ isOpen, onClose, onSend, title, showInput = false, children }: 
           </>
         ) : (
           <>
-            <div className="font-mono">{children}</div>
+            <div className="font-mono mb-2">{children}</div>
             <Button variant="default" onClick={onClose} className={"font-mono"}>
               Close
             </Button>
